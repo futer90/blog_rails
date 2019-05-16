@@ -1,0 +1,37 @@
+<h1 style="text-align:center"><%= @post.title %></h1>
+<p style="text-align:center"><%= @post.author %></p>
+<p style="text-align:justify"><%= @post.body %></p>
+<hr>
+<%= link_to "Редактировать", edit_post_path(@post), :class => 'btn btn-warning btn-sm' %>
+<%= link_to "Удалить пост", post_path(@post), method: :delete, data: {confirm: "Вы точно хотите удалить статью?"},  :class => 'btn btn-danger btn-sm ' %>
+<%= link_to 'Вернуться на главную', home_path, :class => 'btn btn-success btn-sm'%>
+<hr>
+<h2 class="1"> Все комментарии </h2>
+<% @post.comments.each do |comment| %>
+<div class="alert alert-light">
+    <p><strong><%=comment.username %></strong>: <%= comment.body %></p>
+    <p>
+        <%= link_to "Удалить комментарий", [comment.post, comment], method: :delete, data: {confirm: "Вы точно хотите удалить комментарий?"}, :class => 'btn btn-danger btn-sm ' %>
+    </p>
+</div>
+
+<% end %>
+<hr>
+<h2>Добавление комментария</h2>
+<%= form_for ([@post, @post.comments.build]) do |f| %>
+    <p>
+       Пользователь  <br>
+        <%= f.text_field(:username, {:class => 'form-comtrol'}) %>
+    </p>
+
+    <p>
+        Текст комментария <br>
+        <%= f.text_area(:body, {:class => 'form-comtrol'}) %>
+    </p>
+    
+    <p>
+        <%= f.submit("Добавить комментарий", {:class => 'btn btn-success btn-sm'}) %>
+    </p>
+    
+<% end %>
+    

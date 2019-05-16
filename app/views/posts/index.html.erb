@@ -1,0 +1,11 @@
+<h1 class="1"> Все посты </h1>
+<% @post.each do |post| %>
+<div class="alert alert-light">
+    <p style="font-size:20px;font-weight:bold;color:#000000;"> <%= post.title %>   </p>
+    <p><time style="color:grey"><%= post.created_at.to_date.strftime("%d %B, %Y") %></time> | <%= post.author %></p>
+    <p style="font-size:14px; color:#000000; text-align:justify; height:45px;overflow: hidden;">  <%= post.body %></p>
+    <%= link_to "Читать далее", post_path(post), :class => 'btn btn-outline-primary' %>
+    <%= link_to "Редактировать", edit_post_path(post), :class => 'btn btn-outline-success btn-sm' %>
+    <%= link_to "Удалить статью", post_path(post), method: :delete, :class => 'btn btn-outline-danger btn-sm' %>
+</div>
+<% end %>
